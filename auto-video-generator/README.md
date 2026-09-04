@@ -112,7 +112,7 @@ graph TD;
 
 ---
 
-## 🚀 Deployment & Installation
+## Deployment & Installation
 
 ```bash
 # 1. Clone the repository
@@ -161,15 +161,6 @@ npm run dev
 *Transforming raw data into automated business intelligence.*
 
 <br/>
-
-<!-- Dynamic GitHub Stats -->
-<div style="display: flex; justify-content: center; gap: 15px;">
-  <a href="https://github.com/sohail-ahmed-26">
-    <img src="https://github-readme-stats.vercel.app/api?username=sohail-ahmed-26&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="Sohail's GitHub Stats" />
-  </a>
-</div>
-
-<br/><br/>
 
 **🔗 Let's Connect:**
 
