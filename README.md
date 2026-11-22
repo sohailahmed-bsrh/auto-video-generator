@@ -1,102 +1,96 @@
-# Automated Short-Form Text-to-Video Engine
+<div align="center">
 
-> Script-driven automated pipeline assembling vertical short-form videos with synthesized voiceover.
+<h1>Autonomous Video Generation & Media Pipeline</h1>
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=flat-square&logo=github)](https://github.com/sohailahmed-bsrh/auto-video-generator)
-[![Live Showcase](https://img.shields.io/badge/Live-Showcase-0A66C2?style=flat-square&logo=googlechrome)](https://sohail.devsil.com/projects.html)
-[![Author](https://img.shields.io/badge/Author-Sohail%20Ahmed-20BEFF?style=flat-square)](https://sohail.devsil.com)
+<img src="https://readme-typing-svg.herokuapp.com?font=Inter&weight=800&size=22&duration=3000&pause=1000&color=6366F1&center=true&vCenter=true&width=800&lines=Autonomous+Multi-Stage+Media+Synthesis;Narrative+Script+to+Video+Assembly;Audio+Voiceover+%26+Subtitle+Alignment;Vite+%2B+React+%2B+Node.js+Microservices" alt="Typing Header" />
 
----
+<p><strong>End-to-End Autonomous Pipeline for Programmatic Media Generation, Voiceover, and Assembly</strong></p>
 
-## Overview
+<p>
+  <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=nodejs,express,react,vite,ts,tailwind,github&theme=dark" alt="Skills" /></a>
+</p>
 
-Producing high-volume short-form content for modern social media platforms requires manual asset gathering, voiceover recording, and timed text overlays.
-
-This project provides an end-to-end, reproducible implementation engineered to solve this challenge through verified data transformations, reliable algorithms, and production-ready architecture.
+</div>
 
 ---
 
-## Key Features
+## Executive Summary
 
-- Script text breakdown into timed thematic presentation segments
-- Text-to-speech voice synthesis integration with ElevenLabs and gTTS
-- Automated background b-roll clip retrieval and vertical format cropping (9:16)
-- Dynamic text caption animations synchronized with audio waveforms
+The Autonomous Video Generator is a distributed application framework that automates narrative video production. Given a prompt or subject outline, the system constructs sequential video scene prompts, synthesizes relevant visual assets, generates synchronized voiceover audio, produces precise subtitle tracks, and renders the composite media into high-definition video files.
+
+---
+
+## Application Interface & Synthesis Pipeline Gallery
+
+<table align="center">
+  <tr>
+    <td align="center"><b>Topic Ingestion & Script Studio</b><br><sub>Prompt parameter configuration and structured script generation.</sub></td>
+    <td align="center"><b>Scene-by-Scene Visual Breakdown</b><br><sub>Granular scene sequencing with prompt customization.</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="frontend/screenshots/1.jpeg" alt="Script Studio" width="460"/></td>
+    <td align="center"><img src="frontend/screenshots/2.jpg" alt="Scene Review" width="460"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Audio Synthesis & Voiceover Selection</b><br><sub>Voice parameter tuning with synchronized timestamp alignment.</sub></td>
+    <td align="center"><b>Final Media Assembly & Video Preview</b><br><sub>Rendered video output with embedded subtitles and transition timing.</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="frontend/screenshots/3.jpg" alt="Audio Studio" width="460"/></td>
+    <td align="center"><img src="frontend/screenshots/4.jpg" alt="Final Video" width="460"/></td>
+  </tr>
+</table>
 
 ---
 
 ## System Architecture
 
 ```mermaid
-flowchart LR
-    Script[Script Input Text] --> TTS[Voiceover Synthesis Engine]
-    Script --> AssetEngine[B-Roll Visual Asset Matcher]
-    TTS --> Timestamps[Audio Waveform & Timestamps]
-    AssetEngine --> VideoStream[Vertical Video Slices]
-    Timestamps --> Compositor[FFmpeg Dynamic Compositor]
-    VideoStream --> Compositor
-    Compositor --> FinalMP4[Final Rendered 9:16 Video]
+flowchart TD
+    A[Topic Prompt Input] --> B[LLM Script Generation & Scene Breakdown]
+    B --> C[Generative Image Prompt Formulation]
+    C --> D[Visual Asset Generation Engine]
+    B --> E[Audio Voiceover Synthesis Engine]
+    E --> F[Automated Subtitle Timestamp Alignment]
+    D --> G[FFmpeg Video Assembly & Scene Transition Engine]
+    F --> G
+    G --> H[Final High-Definition MP4 Video Output]
 ```
 
 ---
 
 ## Technology Stack
 
-| Technology | Version / Spec | Role in Architecture |
-| :--- | :--- | :--- |
-| **React & TypeScript** | `18.2+` | Web control dashboard with live audio/video player |
-| **Node.js & Express** | `18+` | Asset storage, synthesis orchestration, and render queues |
-| **FFmpeg** | `5.1+` | High-performance video assembly and caption burn-in |
+| Component | Technologies |
+| :--- | :--- |
+| Frontend | React, TypeScript, Vite, Tailwind CSS |
+| Backend Server | Node.js, Express, TypeScript |
+| Media Processing | FFmpeg, Audio/Video Assembly Services |
+| AI Integration | LLM Providers, Image Synthesis Providers |
 
 ---
 
-## Repository Structure
+## Installation & Setup
 
-```text
-auto-video-generator/
-|-- auto-video-generator/
-|   |-- backend/
-|   |   |-- src/
-|   |   `-- package.json
-|   `-- frontend/
-|       |-- src/
-|       `-- package.json
-|-- .gitignore
-`-- README.md
-```
-
----
-
-## Installation and Execution
-
-### Prerequisites
-- Python 3.10 or higher
-- Git version control
-- Virtual environment manager (`venv`)
-
-### Setup Instructions
-1. Clone the repository:
 ```bash
+# Clone the repository
 git clone https://github.com/sohailahmed-bsrh/auto-video-generator.git
 cd auto-video-generator
-```
 
-2. Configure environment and dependencies:
-```bash
-cd auto-video-generator/backend && npm install
-cd ../frontend && npm install
+# Setup backend
+cd backend
+npm install
+npm run dev
+
+# Setup frontend in another terminal
+cd ../frontend
+npm install
 npm run dev
 ```
 
 ---
 
-## Interface and Verification
-The system produces verifiable execution logs, prediction matrices, or interactive browser interfaces depending on the target mode. Verify operation by executing the commands specified above or inspecting the demonstration notebooks.
+## Author & License
 
----
-
-## Author and Contact
-Developed by **Sohail Ahmed** — Full Stack AI Engineer & Machine Learning Specialist.
-- **Portfolio:** [sohail.devsil.com](https://sohail.devsil.com)
-- **GitHub:** [@sohailahmed-bsrh](https://github.com/sohailahmed-bsrh)
-- **Email:** [sohail.bsrh@gmail.com](mailto:sohail.bsrh@gmail.com)
+- **Author**: Sohail Ahmed ([Portfolio](https://sohail.devsil.com) | [GitHub](https://github.com/sohailahmed-bsrh))
+- **License**: Distributed under the MIT License.
