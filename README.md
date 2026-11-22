@@ -12,9 +12,12 @@
 
 <p>
   <a href="#overview">Overview</a> &bull;
+  <a href="#purpose--problem-statement">Purpose</a> &bull;
+  <a href="#real-world-industry-applications">Use Cases</a> &bull;
+  <a href="#step-by-step-engineering-walkthrough">How It Was Built</a> &bull;
   <a href="#system-architecture">Architecture</a> &bull;
   <a href="#visual-showcase-gallery">Visual Gallery</a> &bull;
-  <a href="#core-capabilities">Capabilities</a> &bull;
+  <a href="#technology-stack-matrix">Tech Stack</a> &bull;
   <a href="#installation--setup">Installation</a> &bull;
   <a href="#author--contact-information">Author</a>
 </p>
@@ -24,7 +27,68 @@
 ---
 ## Overview
 
-The Autonomous Video Generator is a distributed application framework that automates narrative video production. Given a prompt or subject outline, the system constructs sequential video scene prompts, synthesizes relevant visual assets, generates synchronized voiceover audio, produces precise subtitle tracks, and renders the composite media into high-definition video files.
+The Autonomous Video Generator is an artificial intelligence application framework engineered for programmatic narrative video production. Given a high-level subject prompt, the system autonomously derives structured scene scripts, formulates generative visual prompts, synthesizes synchronized voiceover tracks, aligns subtitle timestamps, and compiles individual keyframes and audio buffers into high-definition MP4 video deliverables.
+
+---
+
+## Purpose & Problem Statement
+
+### The Problem
+Traditional short-form and educational video production is labor-intensive: writing narrative scripts, searching for stock footage, recording voiceovers, manually timing subtitles, and rendering video clips in video editing software takes hours per video clip. For content creators, media agencies, and educational platforms, scaling video production manually is economically unfeasible.
+
+### The Engineering Purpose
+To build a fully autonomous, asynchronous media synthesis backend paired with a reactive frontend studio. It coordinates generative LLMs, diffusion image models, audio synthesis engines, and FFmpeg command streams into a unified pipeline producing finished video assets without human editing intervention.
+
+---
+
+## Real-World Industry Applications
+
+- **Automated Social Media News & Digests**: Converting daily RSS headlines into 60-second summary videos for TikTok, YouTube Shorts, and Instagram Reels.
+- **E-Learning & Micro-Course Creation**: Programmatically converting written curriculum outlines into engaging multi-scene video lectures.
+- **E-Commerce Product Demonstrations**: Generating dynamic promotional videos directly from structured catalog product descriptions.
+- **Corporate Training & Employee Onboarding**: Turning standard operating procedures into bite-sized procedural training clips.
+
+---
+
+## Step-by-Step Engineering Walkthrough (How It Was Built)
+
+### Step 1: Topic Prompt Ingestion & Script Decomposition
+The user specifies a topic, duration, and target audience tone. The backend script service (`backend/src/modules/script/`) calls an LLM provider to construct a multi-part narrative structure: Hook, Context, Core Value, and Call-to-Action.
+
+### Step 2: Scene Breakdown & Visual Prompt Formulation
+The narrative script is decomposed into discrete 4-to-8 second scenes (`backend/src/modules/video-scenes/video-scene.service.ts`). For each scene, an automated visual prompt generator crafts detailed image generation prompts specifying camera angles, lighting temperature, and stylistic consistency parameters.
+
+### Step 3: Multi-Provider Generative Asset Synthesis
+The image generation service (`backend/src/modules/images/image-generation.service.ts`) dispatches concurrent image generation requests to generative model providers (Cloudflare AI, Qwen, Wan2.1). Synthesized keyframes are downloaded and cached with unique content hashes.
+
+### Step 4: Synthetic Audio Voiceover & Subtitle Alignment
+The audio service (`backend/src/modules/audio/`) interfaces with voice generation providers (ElevenLabs / Edge TTS) to produce natural spoken audio tracks. An automated timestamp extractor tracks word-level durations to generate standardized SRT and ASS subtitle tracks with millimeter typographical alignment.
+
+### Step 5: Programmatic FFmpeg Video Assembly
+The assembly engine (`backend/src/modules/video/assembly.service.ts`) invokes FFmpeg worker processes:
+- Image keyframes are converted into continuous video streams with smooth zoom-in / pan motion (Ken Burns effect).
+- Audio voiceovers and background soundtracks are merged with volume normalization.
+- Subtitle streams are burned into the video buffer using custom typography and shadow matrices.
+- The composite streams are muxed into an H.264/AAC MP4 output file.
+
+### Step 6: Reactive Review Studio & Iteration UI
+A modern Vite + React 18 interface (`frontend/src/`) provides a multi-stage review workspace where creators can inspect script drafts, audition voiceover samples, regenerate individual scene keyframes, and download finalized video files.
+
+---
+
+## System Architecture
+
+```mermaid
+flowchart TD
+    A[Topic Prompt Input] --> B[LLM Script Generation & Scene Breakdown]
+    B --> C[Generative Image Prompt Formulation]
+    C --> D[Visual Asset Generation Engine]
+    B --> E[Audio Voiceover Synthesis Engine]
+    E --> F[Automated Subtitle Timestamp Alignment]
+    D --> G[FFmpeg Video Assembly & Scene Transition Engine]
+    F --> G
+    G --> H[Final High-Definition MP4 Video Output]
+```
 
 ---
 
@@ -67,30 +131,16 @@ The Autonomous Video Generator is a distributed application framework that autom
 
 ---
 
-## System Architecture
+## Technology Stack Matrix
 
-```mermaid
-flowchart TD
-    A[Topic Prompt Input] --> B[LLM Script Generation & Scene Breakdown]
-    B --> C[Generative Image Prompt Formulation]
-    C --> D[Visual Asset Generation Engine]
-    B --> E[Audio Voiceover Synthesis Engine]
-    E --> F[Automated Subtitle Timestamp Alignment]
-    D --> G[FFmpeg Video Assembly & Scene Transition Engine]
-    F --> G
-    G --> H[Final High-Definition MP4 Video Output]
-```
-
----
-
-## Technology Stack
-
-| Component | Technologies |
-| :--- | :--- |
-| Frontend | React, TypeScript, Vite, Tailwind CSS |
-| Backend Server | Node.js, Express, TypeScript |
-| Media Processing | FFmpeg, Audio/Video Assembly Services |
-| AI Integration | LLM Providers, Image Synthesis Providers |
+| Architectural Layer | Technologies | Version / Role | Engineering Purpose |
+| :--- | :--- | :--- | :--- |
+| Backend Server | Node.js, Express, TypeScript | 20.x / 4.19+ | Modular asynchronous pipeline controller |
+| Media Encoding | FFmpeg, Fluent-FFmpeg | Latest | Video stream concatenation, audio muxing, subtitle rendering |
+| Image Synthesis Providers | Cloudflare Workers AI, Qwen | REST APIs | Distributed image generation for video scene keyframes |
+| Voiceover & Audio Engine | ElevenLabs / Edge-TTS | Latest | Neural text-to-speech synthesis and word-level timestamping |
+| Frontend Framework | React 18, Vite | 18.2 / 5.0+ | Reactive timeline interface and scene management |
+| Styling & UI Components | Tailwind CSS | 3.4+ | Modular styling, responsive video canvas, and dark mode |
 
 ---
 
@@ -101,12 +151,12 @@ flowchart TD
 git clone https://github.com/sohailahmed-bsrh/auto-video-generator.git
 cd auto-video-generator
 
-# Setup backend
+# 1. Setup and launch backend
 cd backend
 npm install
 npm run dev
 
-# Setup frontend
+# 2. Setup and launch frontend in another terminal
 cd ../frontend
 npm install
 npm run dev
